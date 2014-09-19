@@ -9,6 +9,7 @@ namespace fastsim
   {
     const std::vector<Map::ill_sw_t>& isv = map->get_illuminated_switches();
     _activated = false;
+    _distance = -1;
     for (size_t i = 0; i < isv.size(); ++i)
       if (isv[i]->get_color() == get_color() && isv[i]->get_on())
 	{
@@ -24,7 +25,8 @@ namespace fastsim
 					x_res, y_res))
 	    {
 	      _activated = true;
-	      _num=i;
+	      _num = i;
+	      _distance  = pos.dist_to(Posture(isv[i]->get_x(), isv[i]->get_y(), 0));
 	    }	  
 	}
     return _activated;
