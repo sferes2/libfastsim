@@ -38,7 +38,7 @@ namespace fastsim
       {
 	float theta = _pos.theta();
 	_pos = prev;
-	_pos.set_theta(theta);
+	//	_pos.set_theta(theta); // activate if you want to turn when in collision
 	_collision = true;
       }
     // update lasers
