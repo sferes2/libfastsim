@@ -1,0 +1,10 @@
+#! /usr/bin/env python
+
+def build(bld):
+     tgt = bld.stlib(features = 'cxx',
+                     source ='display.cpp laser.cpp main.cpp map.cpp radar.cpp light_sensor.cpp robot.cpp linear_camera.cpp',
+                     target = 'fastsim',
+                     includes = './ ../../src/',
+                     uselib = 'ODE BOOST SDL',
+                     use = '')
+
