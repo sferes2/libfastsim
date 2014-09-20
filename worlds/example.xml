@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<fastsim>
+  <!-- world -->
+  <map name="worlds/cuisine.pbm" size="600"/>
+  <robot x="300" y="300" theta="0" diameter="30"/>
+  <illuminated_switch x="150" y="50" color="0" radius="10" on="true"/>
+  <goal x="100" y="100" color="0" diameter="10"/>
+  
+  <!-- sensors -->
+  <laser range="100" angle="45"/>
+  <laser range="100" angle="-45"/>
+  <radar slices="4" color="0"/>
+
+</fastsim>

@@ -1,9 +1,5 @@
 /*
 ** main.cc
-** Login : <mouret@asuncion.lip6.fr>
-** Started on  Mon Jan 14 16:44:52 2008 Jean-Baptiste MOURET
-** $Id$
-** 
 ** Copyright (C) 2008 Jean-Baptiste MOURET
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -23,15 +19,33 @@
 #include <iostream>
 #include "fastsim.hpp"
 
+int main(int argc, char** argv) {
+  using namespace fastsim;
+  assert(argc == 2);
+  fastsim::Settings settings(argv[1]);
+  boost::shared_ptr<Map> map = settings.map();
+  boost::shared_ptr<Robot> robot = settings.robot();
+
+  Display d(map, *robot);
+  
+  for (int i = 0; i < 10000; ++i)
+    {
+      d.update();
+      robot->move(1.0, 1.1, map);
+    }
+  return 0;
+}
+// Example of a main without a config file
+/*
 int main()
 {
   try
     {
-      using namespace fastsim;
+      using namespace fastsim; 
       boost::shared_ptr<Map> m = 
 	boost::shared_ptr<Map>(new Map("cuisine.pbm", 600));
       m->add_goal(Goal(100, 100, 10, 0));
-      Robot r(20.0f, Posture(60, 600-60, 0));
+      Robot r(20.0f, Posture(200, 200, 0));
       r.add_laser(Laser(M_PI / 4.0, 100.0f));
       r.add_laser(Laser(-M_PI / 4.0, 100.0f));
       r.add_laser(Laser(0.0f, 100.0f));
@@ -51,4 +65,4 @@ int main()
     }
   return 0;
 }
-
+*/

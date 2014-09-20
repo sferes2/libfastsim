@@ -2,9 +2,15 @@
 
 def build(bld):
      tgt = bld.stlib(features = 'cxx',
-                     source ='display.cpp laser.cpp main.cpp map.cpp radar.cpp light_sensor.cpp robot.cpp linear_camera.cpp',
+                     source ='display.cpp laser.cpp main.cpp map.cpp radar.cpp light_sensor.cpp robot.cpp linear_camera.cpp settings.cpp',
                      target = 'fastsim',
                      includes = './ ../../src/',
-                     uselib = 'ODE BOOST SDL',
+                     uselib = 'BOOST SDL',
                      use = '')
+     tgt = bld.program(features = 'cxx',
+                       source = 'main.cpp',
+                       target = 'test_fastsim',
+                       includes = '. ../../src/',
+                       uselib = 'BOOST SDL',
+                       use = 'fastsim')
 

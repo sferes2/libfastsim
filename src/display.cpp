@@ -304,9 +304,10 @@ namespace fastsim
 		  cos(a1) * r + x, sin(a1) * r + y,
 		  cos(a2) * r + x, sin(a2) * r + y,
 		  0x0000FF);
+	    assert(radar.get_color() < _map->get_goals().size());
 	    const Goal& g = _map->get_goals()[radar.get_color()];
 	    unsigned gx = _map->real_to_pixel(g.get_x());
-	    unsigned gy = _map->real_to_pixel(g.get_y());	    
+	    unsigned gy = _map->real_to_pixel(g.get_y());
 	    _line(_screen, x, y, gx, gy, 0x0000FF);
 	  }
 
@@ -327,13 +328,13 @@ namespace fastsim
 	  (int) (r * sinf(theta + M_PI / 2.0f) + y),
 	  (int) (r * cosf(theta) + x),
 	  (int) (r * sinf(theta) + y),
-	  cb_left);
+	  cb_right);
     _line(_screen,
 	  (int) (r * cosf(theta - M_PI / 2.0f) + x),
 	  (int) (r * sinf(theta - M_PI / 2.0f) + y),
 	  (int) (r * cosf(theta) + x),
 	  (int) (r * sinf(theta) + y),
-	  cb_right);
+	  cb_left);
   }
 
   Uint32 Display :: _color_from_id(SDL_Surface* surf, int x)

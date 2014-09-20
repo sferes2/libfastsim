@@ -9,4 +9,6 @@
 #include "display.hpp"
 #include "goal.hpp"
 #include "radar.hpp"
+#include "settings.hpp"
+
 #endif
