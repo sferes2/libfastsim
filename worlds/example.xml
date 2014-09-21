@@ -6,9 +6,10 @@
   <illuminated_switch x="150" y="50" color="0" radius="10" on="true"/>
   <goal x="100" y="100" color="0" diameter="10"/>
   
-  <!-- sensors -->
+  <!-- sensors (optionals) -->
   <laser range="100" angle="45"/>
   <laser range="100" angle="-45"/>
+  <laser_scanner angle_min="-100" angle_max="100" angle_inc="2" range="300"/>
   <radar slices="4" color="0"/>
 
 </fastsim>

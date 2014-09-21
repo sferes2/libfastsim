@@ -41,9 +41,16 @@ namespace fastsim
 	//	_pos.set_theta(theta); // activate if you want to turn when in collision
 	_collision = true;
       }
+    _vx = _pos.x() - prev.x();
+    _vy = _pos.y() - prev.y();
+    _va = _pos.theta() - prev.theta();
+
     // update lasers
     for (size_t i = 0; i < _lasers.size(); ++i)
       _lasers[i].update(_pos, m);
+    for (size_t i = 0; i < _laser_scanners.size(); ++i)
+      _laser_scanners[i].update(_pos, m);
+
     // update radars
     for (size_t i = 0; i < _radars.size(); ++i)
       _radars[i].update(_pos, m);

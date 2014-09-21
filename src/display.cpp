@@ -143,8 +143,8 @@ namespace fastsim
   {
 
     if (x >= 0 && y >= 0 
-	&& x < _map->get_pixel_w() 
-	&& y < _map->get_pixel_h() 
+	&& x < (int)_map->get_pixel_w() 
+	&& y < (int)_map->get_pixel_h() 
 	&& _map->get_pixel(x, y) == Map::free)
       {
 	_put_pixel(surf, color, x, y);
@@ -252,8 +252,8 @@ namespace fastsim
     
     assert(x >= 0);
     assert(y >= 0);
-    assert(x + w < _screen->w);
-    assert(y + h < _screen->h);
+    assert(x + w < (unsigned)_screen->w);
+    assert(y + h < (unsigned)_screen->h);
     _line(_screen, x, y, x + w, y, 0);
     _line(_screen, x + w, y, x + w, y + h, 0);
     _line(_screen, x + w, y + h, x, y + h, 0);
@@ -304,7 +304,7 @@ namespace fastsim
 		  cos(a1) * r + x, sin(a1) * r + y,
 		  cos(a2) * r + x, sin(a2) * r + y,
 		  0x0000FF);
-	    assert(radar.get_color() < _map->get_goals().size());
+	    assert(radar.get_color() < (int)_map->get_goals().size());
 	    const Goal& g = _map->get_goals()[radar.get_color()];
 	    unsigned gx = _map->real_to_pixel(g.get_x());
 	    unsigned gy = _map->real_to_pixel(g.get_y());
@@ -364,21 +364,22 @@ namespace fastsim
       }
   }
 
-  void Display :: _disp_lasers()
+
+  void Display :: _disp_lasers(const std::vector<Laser>& lasers)
   {
-    for (size_t i = 0; i < _robot.get_lasers().size(); ++i)
+    for (size_t i = 0; i < lasers.size(); ++i)
       {
 	unsigned x_laser = _map->real_to_pixel(_robot.get_pos().x() 
-					       + _robot.get_lasers()[i].get_gap_dist() 
+					       + lasers[i].get_gap_dist() 
 					       * cosf(_robot.get_pos().theta() 
-						      + _robot.get_lasers()[i].get_gap_angle()));
+						      + lasers[i].get_gap_angle()));
 	unsigned y_laser = _map->real_to_pixel(_robot.get_pos().y() 
-					       + _robot.get_lasers()[i].get_gap_dist() 
+					       + lasers[i].get_gap_dist() 
 					       * sinf(_robot.get_pos().theta()
-						      + _robot.get_lasers()[i].get_gap_angle()));
+						      + lasers[i].get_gap_angle()));
 	_line(_screen, x_laser, y_laser,
-	      _robot.get_lasers()[i].get_x_pixel(),
-	      _robot.get_lasers()[i].get_y_pixel(),
+	      lasers[i].get_x_pixel(),
+	      lasers[i].get_y_pixel(),
 	      0xFF00000);
       }
   }

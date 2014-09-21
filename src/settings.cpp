@@ -43,6 +43,12 @@ namespace fastsim {
 	       _get_a<float>(v.second, "x"),
 	       _get_a<float>(v.second, "y"),
 	       _get_a_bool(v.second, "on"))));
+	else if (v.first == "laser_scanner")
+	  _robot->add_laser_scanner
+	    (LaserScanner(_get_a<float>(v.second, "angle_min") / 180 * M_PI, 
+			  _get_a<float>(v.second, "angle_max") / 180 * M_PI,
+			  _get_a<float>(v.second, "angle_inc") / 180 * M_PI,
+			  _get_a<float>(v.second, "range")));	
       }
     }
 }

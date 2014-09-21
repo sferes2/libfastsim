@@ -31,6 +31,7 @@
 #include "radar.hpp"
 #include "light_sensor.hpp"
 #include "linear_camera.hpp"
+#include "laser_scanner.hpp"
 
 namespace fastsim
 {
@@ -45,7 +46,8 @@ namespace fastsim
       _right_bumper(false),
       _use_camera(false),
       _collision(false),
-      _color(1)
+      _color(1),
+      _vx(0), _vy(0), _va(0)
     {
       _bb.w = _radius * 2 + 8;
       _bb.h = _radius * 2 + 8;      
@@ -56,7 +58,8 @@ namespace fastsim
       _left_bumper(false),
       _right_bumper(false),
       _use_camera(false),
-      _collision(false)
+      _collision(false),
+      _vx(0), _vy(0), _va(0)
     {
       _bb.w = _radius * 2 + 8;
       _bb.h = _radius * 2 + 8;      
@@ -72,6 +75,10 @@ namespace fastsim
     void move(float v1, float v2, const boost::shared_ptr<Map>& m);
     const Posture& get_pos() const { return _pos; }
     void set_pos(const Posture& pos) { _pos = pos; }
+    float get_vx() const { return _vx; }
+    float get_vy() const { return _vy; }
+    float get_va() const { return _va; }
+
     const BoundingBox& get_bb() const { return _bb; }
     float get_radius() const { return _radius; }
     bool get_collision() const { return _collision;}
@@ -82,6 +89,10 @@ namespace fastsim
     // lasers
     void add_laser(const Laser& l) { _lasers.push_back(l); }
     const std::vector<Laser>& get_lasers() const { return _lasers; }
+
+    // laser scanners
+    void add_laser_scanner(const LaserScanner& l) { _laser_scanners.push_back(l); }
+    const std::vector<LaserScanner>& get_laser_scanners() const { return _laser_scanners; }
 
     // radars
     void add_radar(const Radar& r){ _radars.push_back(r); }
@@ -108,10 +119,12 @@ namespace fastsim
     std::vector<Laser> _lasers;
     std::vector<Radar> _radars;
     std::vector<LightSensor> _light_sensors;
+    std::vector<LaserScanner> _laser_scanners;
     LinearCamera _camera;
     bool _use_camera;
     bool _collision;
     unsigned int _color;
+    float _vx, _vy, _va;
   };
 }
 

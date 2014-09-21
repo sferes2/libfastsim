@@ -84,7 +84,7 @@ namespace fastsim
       exit(0);
     }
     void _put_pixel(SDL_Surface* surf,
-		    Uint32 color, unsigned x, unsigned y)
+		    Uint32 color, int x, int y)
     {
       if (x >= surf->w || x < 0 || y >= surf->h || y < 0)
 	return;
@@ -92,7 +92,7 @@ namespace fastsim
       *bufp = color;
     }
     void _put_pixel(SDL_Surface* surf,
-		    unsigned x, unsigned y,
+		    int x, int y,
 		    Uint8 r, Uint8 g, Uint8 b)
     {  _put_pixel(surf, SDL_MapRGB(surf->format, r, g, b), x, y); }
     
@@ -136,7 +136,12 @@ namespace fastsim
     void _disp_switches();
     void _disp_radars();
     void _disp_bumpers();
-    void _disp_lasers();
+    void _disp_lasers(const std::vector<Laser>& lasers);
+    void _disp_lasers() { 
+      _disp_lasers(_robot.get_lasers()); 
+      for (size_t i = 0; i < _robot.get_laser_scanners().size(); ++i)
+	_disp_lasers(_robot.get_laser_scanners()[i].get_lasers());
+    }
     void _disp_light_sensors();
     void _disp_camera();
     // 

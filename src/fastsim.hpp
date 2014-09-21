@@ -2,6 +2,7 @@
 #define FASTSIM_HPP_
 
 #include "laser.hpp"
+#include "laser_scanner.hpp"
 #include "map.hpp"
 #include "misc.hpp"
 #include "posture.hpp"
