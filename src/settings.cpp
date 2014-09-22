@@ -48,7 +48,12 @@ namespace fastsim {
 	    (LaserScanner(_get_a<float>(v.second, "angle_min") / 180 * M_PI, 
 			  _get_a<float>(v.second, "angle_max") / 180 * M_PI,
 			  _get_a<float>(v.second, "angle_inc") / 180 * M_PI,
-			  _get_a<float>(v.second, "range")));	
+			  _get_a<float>(v.second, "range")));
+	else if (v.first == "light_sensor")
+	  _robot->add_light_sensor
+	    (LightSensor(_get_a<int>(v.second, "color"),
+			 _get_a<float>(v.second, "angle") / 180 * M_PI,
+			 _get_a<float>(v.second, "angular_range") / 180 * M_PI));
       }
     }
 }
