@@ -392,24 +392,24 @@ namespace fastsim
 	unsigned x_ls = _map->real_to_pixel(_robot.get_pos().x());
 	unsigned y_ls = _map->real_to_pixel(_robot.get_pos().y());
 	unsigned x_ls1 = _map->real_to_pixel(_robot.get_pos().x() 
-					       + 200./(float)ls.get_color() 
-					       * cosf(_robot.get_pos().theta() 
-						      + ls.get_angle()-ls.get_range()/2.0));
+					     + 200./((float)ls.get_color() + 1) 
+					     * cosf(_robot.get_pos().theta() 
+						    + ls.get_angle()-ls.get_range()/2.0));
 	unsigned y_ls1 = _map->real_to_pixel(_robot.get_pos().y() 
-					       + 200./(float)ls.get_color()
-					       * sinf(_robot.get_pos().theta()
-						      + ls.get_angle()-ls.get_range()/2.0));	
+					     + 200./((float)ls.get_color() + 1)
+					     * sinf(_robot.get_pos().theta()
+						    + ls.get_angle()-ls.get_range()/2.0));	
 	_line(_screen, x_ls, y_ls, x_ls1, y_ls1, _color_from_id(_screen, ls.get_color()));
 	unsigned x_ls2 = _map->real_to_pixel(_robot.get_pos().x() 
-					       + 200./(float)ls.get_color() 
-					       * cosf(_robot.get_pos().theta() 
-						      + ls.get_angle()+ls.get_range()/2.0));
+					     + 200./((float)ls.get_color() + 1)
+					     * cosf(_robot.get_pos().theta() 
+						    + ls.get_angle()+ls.get_range()/2.0));
 	unsigned y_ls2 = _map->real_to_pixel(_robot.get_pos().y() 
-					       + 200./(float)ls.get_color() 
-					       * sinf(_robot.get_pos().theta()
-						      + ls.get_angle()+ls.get_range()/2.0));	
+					     + 200./((float)ls.get_color() + 1)
+					     * sinf(_robot.get_pos().theta()
+						    + ls.get_angle()+ls.get_range()/2.0));	
 	_line(_screen, x_ls, y_ls, x_ls2, y_ls2, _color_from_id(_screen, ls.get_color()));
-	_line(_screen, x_ls1, y_ls1, x_ls2, y_ls2, _color_from_id(_screen, ls.get_color()));
+       	_line(_screen, x_ls1, y_ls1, x_ls2, y_ls2, _color_from_id(_screen, ls.get_color()));
 
 	if (ls.get_activated())
 	  {
@@ -501,8 +501,8 @@ namespace fastsim
     if (rect.y + rect.h > _h) rect.h = _h;
     
     // the fast one
-    SDL_UpdateRect(_screen, rect.x, rect.y, rect.w, rect.h);
-    // the slow one
+    //SDL_UpdateRect(_screen, rect.x, rect.y, rect.w, rect.h);
+    // the slow one (needed when we have more than a circle to draw...)
     SDL_UpdateRect(_screen, 0, 0, _screen->w, _screen->h);
     _bb_to_sdl(_robot.get_bb(), &_prev_bb);
 
