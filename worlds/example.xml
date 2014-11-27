@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <fastsim>
+  <display enable="true"/>
   <!-- world -->
   <map name="worlds/cuisine.pbm" size="600"/>
   <robot x="300" y="300" theta="0" diameter="30"/>
