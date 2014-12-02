@@ -13,7 +13,9 @@ Mouret, J.-B. and Doncieux, S. (2012). Encouraging Behavioral Diversity in Evolu
 
 Usage & installation
 --------------------
-- run ./waf configure and ./waf build
+- run `./waf configure` and `./waf build`
+
+- running: `build/src/test_fastsim worlds/example.xml`
 
 ### Depedencies: 
 - SDL 1.2 (can be deactivated)
