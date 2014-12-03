@@ -51,7 +51,7 @@ Main classes:
 - `Settings(const std::string& xml_file)`: a simple XML parser to easily implement a configuration file for fastsim (see below)
 
 Objects:
-- `Goal(float x, float y, float diam, int color)`: goals are omnidirectional beacons that can be seen by `Radar` sensors. Depending on the configuration of the radar, the robot can see or not see goals through walls. 
+- `Goal(float x, float y, float diam, int color)`: goals are omnidirectional beacons that can be seen by `Radar` sensors. Depending on the configuration of the radar, the robot can see or not see goals through walls. The activated slice is -1 if the goal is not visible.
 - `IlluminatedSwitch(int color, float radius, float x, float y, bool on)`: illuminated switches are omnidirectional beacons that can be hidden by walls. They can be switched on or off (`activate()`/`deactivate()`). An `IlluminatedSwitch` can be linked to other switches (`link()`) to create "circuits". Once put in a map, the illuminated switches are switched on if a robot touches it.
 
 Sensors:
