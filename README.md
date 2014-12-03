@@ -40,9 +40,13 @@ Minimal documentation
 ---------------------
 Fastsim uses a bitmap (a pbm file) as an environment. It uses pixel-wise collision detection and interesection tests (lasers). There are two coordinate systems: world coordinates, and pixel coordinates. In general, everything is expressed in world coordinate and a scaling is automatically applied by fastsim to get the pixel coordinates.
 
+Units:
+- everything is expressed in world coordinates
+- angles are in radians *except in the XML file*, where they are in degrees.
+
 Main classes:
-- `Map(const char* fname, float real_w)`: probably the main object of fastsim. It contains the robot, the goals, and the illuminated switches. `real_w` corresponds to the width of the map in world coordinates. Do not forget to call Map::update() at each time step
-- `Robot(float radius)`: represent a khepera-like robot with a differential drive system. You need to add sensors to customize it (lasers, camera, radars, etc.). Bumper are added automatically.
+- `Map(const char* fname, float real_w)`: the main object of fastsim. It contains the robot, the goals, and the illuminated switches. `real_w` corresponds to the width of the map in world coordinates. Do not forget to call Map::update() at each time step
+- `Robot(float radius)`: a khepera-like robot with a differential drive system. You need to add sensors to customize it (lasers, camera, radars, etc.). Bumper are added automatically.
 - `Display(const boost::shared_ptr<Map>& m, const Robot& r)`: a SDL buffer (window) that can be used to visualize the robot, the environment, etc. (depends on SDL)
 - `Settings(const std::string& xml_file)`: a simple XML parser to easily implement a configuration file for fastsim (see below)
 
