@@ -4,7 +4,7 @@ fastsim
 
 Fastsim is a fast, lightweight simulator of a wheeled robot (khepera-like).
 
-This is the library version. A Sferes2 module and ros modules are available in separate repositories.
+This is the library version. A Sferes2 module and ros module are available in separate repositories. The ROS module currently uses this library, but not the sferes one (not yet).
 
 *If you use this software in an academic article, please cite:*
 
