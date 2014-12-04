@@ -16,7 +16,7 @@ namespace fastsim {
       (new Robot(_get_a<float>(n_robot, "diameter"),
 		 Posture(_get_a<float>(n_robot, "x"),
 			 _get_a<float>(n_robot, "y"),
-			 _get_a<float>(n_robot, "theta"))));
+			 _get_a<float>(n_robot, "theta") / 180.0 * M_PI)));
 
     ptree& n_display = pt.get_child("fastsim.display");
     _display = _get_a_bool(n_display, "enable");
