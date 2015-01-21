@@ -14,9 +14,11 @@ namespace fastsim {
     Settings(const std::string& xml_file);
     boost::shared_ptr<Map> map() { return _map; }
     boost::shared_ptr<Robot> robot() { return _robot; }
+    bool display() const { return _display; }
   protected:
     boost::shared_ptr<Map> _map;
     boost::shared_ptr<Robot> _robot;
+    bool _display;
 
     template<typename R>
     R _get_a(const boost::property_tree::ptree& v, const char *a) const {

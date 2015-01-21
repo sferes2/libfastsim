@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
     {
       d.update();
       robot->move(1.0, 1.1, map);
+      usleep(1000);
     }
   return 0;
 }

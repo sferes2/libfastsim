@@ -16,7 +16,10 @@ namespace fastsim
     LightSensor(int color, float angle, float range) :
       _color(color), _angle(angle), _range(range),
       _activated(false), _num(0), _distance(-1)
-    {}
+    {
+      assert((normalize_angle(angle - range) < 0 && normalize_angle(angle + range < 0))
+	     || (normalize_angle(angle - range) > 0 && normalize_angle(angle + range) > 0));
+    }
     int update(const Posture& pos,
 	       const boost::shared_ptr<Map>& map);
     int	get_color() const { return _color; }
