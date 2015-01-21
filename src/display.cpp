@@ -466,8 +466,6 @@ namespace fastsim
     // goals
     _disp_goals();
     
-    // illuminated switches
-    _disp_switches();
     
     // light sensor
     _disp_light_sensors();
@@ -488,6 +486,10 @@ namespace fastsim
 
     // bumpers
     _disp_bumpers();
+
+    // illuminated switches
+    _disp_switches();
+
         
     SDL_Rect rect;
     _bb_to_sdl(_robot.get_bb(), &rect);
