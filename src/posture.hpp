@@ -50,6 +50,8 @@ namespace fastsim
     //
     float theta() const { return _theta;}
     void set_theta(float t) { _theta = t; }
+    void set_x(float x) { _x = x; }
+    void set_y(float y) { _y = y; }
     float x() const { return _x; }
     float y() const { return _y; }
     float get_x() const { return _x; }
