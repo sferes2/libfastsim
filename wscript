@@ -12,11 +12,11 @@ import os, sys, commands
 
 def detect_sdl(conf):
     conf.start_msg('Checking for SDL')
-    ret = conf.find_program('sdl-config')
+    ret = conf.find_program('sdl2-config')
     if not ret:
         conf.end_msg('ERROR')
         return 0
-    res = commands.getoutput('sdl-config --cflags --libs')
+    res = commands.getoutput('sdl2-config --cflags --libs')
     conf.parse_flags(res, uselib_store='SDL')
     conf.end_msg('ok')
     return 1
