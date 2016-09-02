@@ -6,6 +6,8 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/foreach.hpp> 
 
+#include "asv.hpp"
+
 
 namespace fastsim {
   class Settings {
@@ -14,10 +16,12 @@ namespace fastsim {
     Settings(const std::string& xml_file);
     boost::shared_ptr<Map> map() { return _map; }
     boost::shared_ptr<Robot> robot() { return _robot; }
+    boost::shared_ptr<ASV> asv() { return _asv; }
     bool display() const { return _display; }
   protected:
     boost::shared_ptr<Map> _map;
     boost::shared_ptr<Robot> _robot;
+    boost::shared_ptr<fastsim::ASV> _asv;
     bool _display;
 
     template<typename R>

@@ -2,15 +2,15 @@
 
 def build(bld):
      tgt = bld.stlib(features = 'cxx',
-                     source ='display.cpp laser.cpp main.cpp map.cpp radar.cpp light_sensor.cpp robot.cpp linear_camera.cpp settings.cpp',
+                     source ='display.cpp laser.cpp main.cpp map.cpp radar.cpp light_sensor.cpp robot.cpp linear_camera.cpp settings.cpp asv.cpp',
                      target = 'fastsim',
                      includes = './ ../../src/',
-                     uselib = 'BOOST SDL',
+                     uselib = 'BOOST SDL EIGEN',
                      use = '')
      tgt = bld.program(features = 'cxx',
                        source = 'main.cpp',
                        target = 'test_fastsim',
                        includes = '. ../../src/',
-                       uselib = 'BOOST SDL',
+                       uselib = 'BOOST SDL EIGEN',
                        use = 'fastsim')
 

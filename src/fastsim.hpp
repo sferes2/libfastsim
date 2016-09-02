@@ -11,5 +11,6 @@
 #include "goal.hpp"
 #include "radar.hpp"
 #include "settings.hpp"
+#include "asv.hpp"
 
 #endif

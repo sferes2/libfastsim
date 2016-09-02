@@ -55,7 +55,8 @@ namespace fastsim
 	{
 	  std::cerr<<"error : "<<e.get_msg()<<std::endl;
 	}
-      assert(_w == _h);
+
+        assert(_w == _h);
       _fx = _w / _real_w;
     }
     // copy ONLY the picture (no goal, illuminated switches, etc) 

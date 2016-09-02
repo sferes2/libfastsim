@@ -31,6 +31,7 @@ namespace fastsim
     std::ifstream ifs(fname.c_str());
     if (!ifs.good())
       throw Exception(std::string("cannot open map :") + fname);
+
     ifs >> str >> _w >> _h;
     if (str != "P4")
       throw Exception("wrong file type for map");

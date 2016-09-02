@@ -25,12 +25,15 @@ def detect_sdl(conf):
 def options(opt):
         opt.load('compiler_cxx boost waf_unit_test')
         opt.load('compiler_c')
+        opt.load('eigen')
 	
 def configure(conf):
     	print("configuring b-optimize")
     	conf.load('compiler_cxx boost waf_unit_test')
         conf.load('compiler_c')
 	detect_sdl(conf)
+        conf.load('eigen')
+        conf.check_eigen()
 	common_flags = "-Wall -DUSE_SDL "
 
 	cxxflags = conf.env['CXXFLAGS']

@@ -18,6 +18,49 @@ namespace fastsim {
 			 _get_a<float>(n_robot, "y"),
 			 _get_a<float>(n_robot, "theta") / 180.0 * M_PI)));
 
+    ptree &n_asv = pt.get_child("fastsim.asv");
+    // mass of rigid body
+    float mass = _get_a<float>(n_asv, "mass");
+    float iz   = _get_a<float>(n_asv, "moment_z");
+    // added mass coefficients
+    float xu1  = _get_a<float>(n_asv, "addedmass_xu1");
+    float yv1  = _get_a<float>(n_asv, "addedmass_yv1");
+    float nr1  = _get_a<float>(n_asv, "addedmass_nr1");
+    float yr1  = _get_a<float>(n_asv, "addedmass_yr1");
+    // linear drag coefficients
+    float xu2  = _get_a<float>(n_asv, "draglinear_xu2");
+    float yv2  = _get_a<float>(n_asv, "draglinear_yv2");
+    float nr2  = _get_a<float>(n_asv, "draglinear_nr2");
+    // quadratic drag coefficients
+    float xu3  = _get_a<float>(n_asv, "dragquad_xu3");
+    float yv3  = _get_a<float>(n_asv, "dragquad_yv3");
+    float nr3  = _get_a<float>(n_asv, "dragquad_nr3");
+    // Distance from CoM of boat to the propellers
+    float distx  = _get_a<float>(n_asv, "com_propeller_distx");
+    float disty  = _get_a<float>(n_asv, "com_propeller_disty");
+    // Integration time step
+    float deltaT  = _get_a<float>(n_asv, "deltaT");
+
+     Matrix<float, 3, 3> mrb, ma, dl, dq; Vector2f pos_left, pos_right;
+     mrb << mass, 0.0f, 0.0f,
+            0.0f, mass, 0.0f,
+            0.0f, 0.0f, iz;
+     ma <<  xu1, 0.0f, 0.0f,
+            0.0f, yv1, yr1,
+            0.0f, yr1, nr1;
+     dl <<  xu2, 0.0f, 0.0f,
+            0.0f, yv2, 0.0f,
+            0.0f, 0.0f, nr2;
+     dq <<  xu3, 0.0f, 0.0f,
+            0.0f, yv3, 0.0f,
+            0.0f, 0.0f, nr3;
+     pos_left  << distx, -disty;
+     pos_right << distx,  disty;
+
+    _asv = boost::shared_ptr<ASV>
+      (new ASV(mass, iz, mrb, ma, dl, dq, pos_left, pos_right, deltaT));
+
+
     ptree& n_display = pt.get_child("fastsim.display");
     _display = _get_a_bool(n_display, "enable");
     std::cout<<"display=" << _display << std::endl;

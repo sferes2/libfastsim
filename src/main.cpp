@@ -23,15 +23,33 @@ int main(int argc, char** argv) {
   using namespace fastsim;
   assert(argc == 2);
   fastsim::Settings settings(argv[1]);
-  boost::shared_ptr<Map> map = settings.map();
+  boost::shared_ptr<fastsim::Map> map = settings.map(); // fastsim::Map in template argument so as to not confuse with Eigen::Map
   boost::shared_ptr<Robot> robot = settings.robot();
+  boost::shared_ptr<ASV> asv = settings.asv();
 
   Display d(map, *robot);
+
+  Posture p;
   
   for (int i = 0; i < 10000; ++i)
     {
       d.update();
+
+      asv->set_thrust(1.0f, 1.0f, 0.0f);
+      asv->inverseDynamics();
+      asv->kinematics();
+      Vector3f newpos = asv->get_pos();
+
+      p.set_x(newpos(0));
+      p.set_y(newpos(1));
+      p.set_theta(newpos(2));
+      //robot->set_pos(p);
+
+
+
       robot->move(1.0, 1.1, map);
+      std::cout << robot->get_pos();
+
       usleep(1000);
     }
   return 0;

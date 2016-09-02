@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<fastsim>
+  <display enable="true"/>
+  <!-- world -->
+  <map name="worlds/empty_world.pbm" size="1600"/>
+  <robot x="300" y="300" theta="0" diameter="30"/>
+  <asv mass="1" moment_z="1" addedmass_xu1="0.25" addedmass_yv1="0.25" addedmass_nr1="0.25" addedmass_yr1="0.25" draglinear_xu2="10"  draglinear_yv2="10"  draglinear_nr2="10" dragquad_xu3="0"  dragquad_yv3="0"  dragquad_nr3="0" com_propeller_distx="0.5" com_propeller_disty="0.2" deltaT="0.01"/>
+  <!-- <illuminated_switch x="250" y="450" color="0" radius="10" on="true"/> -->
+  <!-- <light_sensor angle="100" color="0" angular_range="50"/> -->
+  <!-- <goal x="100" y="100" color="0" diameter="10"/> -->
+  
+  <!-- sensors (optionals) -->
+  <!-- <laser range="100" angle="45"/> -->
+  <!-- <laser range="100" angle="-45"/> -->
+  <!-- <laser_scanner angle_min="-100" angle_max="100" angle_inc="2" range="300"/> -->
+  <!-- <radar slices="4" color="0"/> -->
+</fastsim>
