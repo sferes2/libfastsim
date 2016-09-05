@@ -73,6 +73,7 @@ namespace fastsim
       _right_bumper = false;
     }
     void move(float v1, float v2, const boost::shared_ptr<Map>& m);
+    void move(Posture p, const boost::shared_ptr<Map>& m);
     const Posture& get_pos() const { return _pos; }
     void set_pos(const Posture& pos) { _pos = pos; }
     float get_vx() const { return _vx; }
