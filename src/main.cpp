@@ -30,7 +30,19 @@ int main(int argc, char** argv) {
   Display d(map, *robot);
 
   Posture p;
-  
+
+  //p = robot->get_pos();
+
+  asv->set_pos(Vector3f(robot->get_pos().get_x()*0.01f, robot->get_pos().get_y()*0.01f, robot->get_pos().theta())); // convert distance to meters
+
+
+  std::cout << "ASV acceleration " << asv->get_acceleration() << std::endl;
+
+  std::cout << "ASV velocity " << asv->get_velocity() << std::endl;
+
+  std::cout << "ASV pos " << asv->get_pos() << std::endl;
+
+
   for (int i = 0; i < 10000; ++i)
     {
       d.update();
@@ -40,17 +52,24 @@ int main(int argc, char** argv) {
       asv->kinematics();
       Vector3f newpos = asv->get_pos();
 
-      p.set_x(newpos(0));
-      p.set_y(newpos(1));
+      std::cout << "ASV acceleration " << asv->get_acceleration() << std::endl;
+
+      std::cout << "ASV velocity " << asv->get_velocity() << std::endl;
+
+      std::cout << "ASV pos " << asv->get_pos() << std::endl; // in meters
+
+
+      p.set_x(newpos(0)*100.0f); // convert to cm
+      p.set_y(newpos(1)*100.0f); // convert to cm
       p.set_theta(newpos(2));
       //robot->set_pos(p);
 
 
 
-      robot->move(1.0, 1.1, map);
-      std::cout << robot->get_pos();
+      robot->move(1.0, 1.0, map);
+      std::cout << robot->get_pos().get_x()  << ", " << robot->get_pos().get_y() << ", " << robot->get_pos().theta() << std::endl;
 
-      usleep(1000);
+      usleep(1000); // why sleep for 1s?
     }
   return 0;
 }

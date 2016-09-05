@@ -55,6 +55,7 @@ namespace fastsim
       _prop_pos_right(pos_right),
       _delta_t(dt)
     {
+        init();
       /*_bb.w = _radius * 2 + 8;
       _bb.h = _radius * 2 + 8;
       _update_bb();*/
@@ -130,6 +131,10 @@ namespace fastsim
     Matrix<float, 3, 3> & get_drag_linear() {return _drag_linear;}
     Matrix<float, 3, 3> & get_drag_quadratic() {return _drag_quadratic;}
     Vector3f & get_pos() {return _position;}
+    Vector3f & get_thrust() {return _thrust;}
+    Vector3f & get_acceleration() {return _acceleration;}
+    Vector3f & get_velocity() {return _velocity;}
+
 
     void set_mass_rigidbody(Matrix<float, 3, 3> MRB) {_mass_rigidbody = MRB;}
     void set_mass_added(Matrix<float, 3, 3> MA) {_mass_added = MA;}
