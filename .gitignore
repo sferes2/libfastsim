@@ -3,6 +3,7 @@
 *.lo
 *.o
 *.obj
+*.pyc
 
 # Precompiled Headers
 *.gch
@@ -21,6 +22,11 @@
 *.la
 *.a
 *.lib
+
+# Waf things
+.lock-waf*
+.waf-*
+build
 
 # Executables
 *.exe

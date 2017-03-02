@@ -3,18 +3,18 @@
 ** Login : <mouret@asuncion.lip6.fr>
 ** Started on  Mon Jan 14 16:39:08 2008 Jean-Baptiste MOURET
 ** $Id$
-** 
+**
 ** Copyright (C) 2008 Jean-Baptiste MOURET
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
-** 
+**
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
-** 
+**
 ** You should have received a copy of the GNU General Public License
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
@@ -27,11 +27,22 @@ namespace fastsim
 {
   void Map::_read_file(const std::string& fname)
   {
-    std::string str;
+    std::string str, check;
     std::ifstream ifs(fname.c_str());
     if (!ifs.good())
       throw Exception(std::string("cannot open map :") + fname);
-    ifs >> str >> _w >> _h;
+    ifs >> str >> check;
+    // If there is a # means we have a header, ignore it
+    if (check == "#")
+    {
+      char c = ' ';
+      // usually they put a new line
+      while (c != '\n')
+        ifs.read(&c, 1);
+    }
+    else
+      ifs.seekg(ifs.tellg()-check.size());
+    ifs >> _w >> _h;
     if (str != "P4")
       throw Exception("wrong file type for map");
     _data.resize(_w * _h);
@@ -45,9 +56,9 @@ namespace fastsim
       for (int j = 0; j < 8; ++j)
 	_data[i * 8 + j] = _get_bit(buffer[i + 1], j) ? obstacle : free;
   }
-  
+
   // we use the "triangle method"
-  // concept : 
+  // concept :
   // * area = base * height / 2
   // * area = cross product
   // -> if height < radius, intersection
@@ -68,9 +79,9 @@ namespace fastsim
       return true;
     return false;
   }
-  
+
   int Map::check_inter_is(float x1, float y1,
-			  float x2, float y2) const 
+			  float x2, float y2) const
   {
     // list intersections with rays
     std::vector<ill_sw_t> res;
@@ -83,7 +94,7 @@ namespace fastsim
 				      isv->get_x(), isv->get_y(),
 				      isv->get_radius())
 	    && !check_inter_real(x1, y1, isv->get_x(), isv->get_y(), xtmp, ytmp))
-	  res.push_back(isv);	    
+	  res.push_back(isv);
       }
     if (res.empty())
       return -1;
@@ -91,13 +102,13 @@ namespace fastsim
     std::sort(res.begin(), res.end(), ClosestSwitch_f(x1, y1));
     return res[0]->get_color();
   }
-  
-  
+
+
   bool Map :: _try_pixel(int x, int y) const
   {
-    if (x >= 0 && y >= 0 
-	&& x < get_pixel_w() 
-	&& y < get_pixel_h() 
+    if (x >= 0 && y >= 0
+	&& x < get_pixel_w()
+	&& y < get_pixel_h()
 	&& get_pixel(x, y) == free)
       return false;
     else
@@ -105,7 +116,7 @@ namespace fastsim
   }
 
 
-  
+
   // see
   // http://lifc.univ-fcomte.fr/~dedu/projects/bresenham/index.html
   // In PIXEL coordinates
@@ -127,7 +138,7 @@ namespace fastsim
     ddy = dy * 2;
     ddx = dx * 2;
     if (ddx >= ddy) // first octant (0 <= slope <= 1)
-      {  
+      {
 	errorprev = error = dx;
 	for (i = 0 ; i < dx ; i++)
 	  {  // do not use the first point (already done)
@@ -196,8 +207,8 @@ namespace fastsim
 
     for (i=0;i<lx;i++)
       for (j=0;j<ly;j++) {
-	if ((x+i) >= 0 && (y+j) >= 0 
-	    && (x+i) < get_pixel_w() 
+	if ((x+i) >= 0 && (y+j) >= 0
+	    && (x+i) < get_pixel_w()
 	    && (y+j) < get_pixel_h())
 	  set_pixel(x+i,y+j,obstacle);
       }
