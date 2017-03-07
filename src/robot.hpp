@@ -3,18 +3,18 @@
 ** Login : <mouret@asuncion.lip6.fr>
 ** Started on  Mon Jan 14 16:40:06 2008 Jean-Baptiste MOURET
 ** $Id$
-** 
+**
 ** Copyright (C) 2008 Jean-Baptiste MOURET
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
-** 
+**
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
-** 
+**
 ** You should have received a copy of the GNU General Public License
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
@@ -39,7 +39,7 @@ namespace fastsim
   {
   public:
     struct BoundingBox { float x, y, w, h; };
-    Robot(float radius) : 
+    Robot(float radius) :
       _radius(radius),
       _pos(0, 0, 0),
       _left_bumper(false),
@@ -50,11 +50,11 @@ namespace fastsim
       _vx(0), _vy(0), _va(0)
     {
       _bb.w = _radius * 2 + 8;
-      _bb.h = _radius * 2 + 8;      
+      _bb.h = _radius * 2 + 8;
       _update_bb();
     }
     Robot(float radius, const Posture& pos) :
-      _radius(radius), _pos(pos), 
+      _radius(radius), _pos(pos),
       _left_bumper(false),
       _right_bumper(false),
       _use_camera(false),
@@ -62,7 +62,7 @@ namespace fastsim
       _vx(0), _vy(0), _va(0)
     {
       _bb.w = _radius * 2 + 8;
-      _bb.h = _radius * 2 + 8;      
+      _bb.h = _radius * 2 + 8;
       _update_bb();
     }
     //
@@ -72,7 +72,7 @@ namespace fastsim
       _left_bumper = false;
       _right_bumper = false;
     }
-    void move(float v1, float v2, const boost::shared_ptr<Map>& m);
+    void move(float v1, float v2, const boost::shared_ptr<Map>& m, bool sticky_walls = true);
     const Posture& get_pos() const { return _pos; }
     void set_pos(const Posture& pos) { _pos = pos; }
     float get_vx() const { return _vx; }
