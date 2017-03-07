@@ -3,18 +3,18 @@
 ** Login : <mouret@asuncion.lip6.fr>
 ** Started on  Mon Jan 14 16:40:38 2008 Jean-Baptiste MOURET
 ** $Id$
-** 
+**
 ** Copyright (C) 2008 Jean-Baptiste MOURET
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
-** 
+**
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
-** 
+**
 ** You should have received a copy of the GNU General Public License
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
@@ -28,7 +28,7 @@
 
 namespace fastsim
 {
-  void Robot :: move(float v1, float v2, const boost::shared_ptr<Map>& m)
+  void Robot :: move(float v1, float v2, const boost::shared_ptr<Map>& m, bool sticky_walls)
   {
     Posture prev = _pos;
     _pos.move(v1, v2, _radius * 2);
@@ -38,7 +38,8 @@ namespace fastsim
       {
 	float theta = _pos.theta();
 	_pos = prev;
-	//	_pos.set_theta(theta); // activate if you want to turn when in collision
+	if (!sticky_walls) // activate if you want to turn when in collision
+		_pos.set_theta(theta);
 	_collision = true;
       }
     _vx = _pos.x() - prev.x();
@@ -80,7 +81,7 @@ namespace fastsim
     int bby = m->real_to_pixel(_bb.y);
     int bbw = m->real_to_pixel(_bb.x + _bb.w);
     int bbh = m->real_to_pixel(_bb.y + _bb.h);
-    
+
     typedef std::pair<int, int> p_t;
     std::list<p_t > coll_points;
     for (int i = bbx; i < bbw; ++i)
@@ -102,7 +103,7 @@ namespace fastsim
 	for (std::list<p_t>::const_iterator it = coll_points.begin();
 	     it != coll_points.end(); ++it)
 	  {
-	    float a = Posture::normalize_angle(atan2(it->second - y, 
+	    float a = Posture::normalize_angle(atan2(it->second - y,
 						     it->first - x) - _pos.theta());
 	    if (a > 0 && a < M_PI / 2.0)
 	      _right_bumper = true;
