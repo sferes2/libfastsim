@@ -3,18 +3,18 @@
 ** Login : <mouret@asuncion.lip6.fr>
 ** Started on  Mon Jan 14 16:42:14 2008 Jean-Baptiste MOURET
 ** $Id$
-** 
+**
 ** Copyright (C) 2008 Jean-Baptiste MOURET
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
-** 
+**
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
-** 
+**
 ** You should have received a copy of the GNU General Public License
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
@@ -32,7 +32,7 @@
 #include <unistd.h>
 
 #ifdef USE_SDL
-#include <SDL.h>
+#include <SDL/SDL.h>
 #endif
 
 #include "map.hpp"
@@ -52,9 +52,9 @@ namespace fastsim
       SDL_FreeSurface(_map_bmp);
       SDL_FreeSurface(_screen);
       SDL_Quit();
-    }    
+    }
     void update();
-    void update_map() 
+    void update_map()
     {
       _blit_map();
     }
@@ -95,7 +95,7 @@ namespace fastsim
 		    int x, int y,
 		    Uint8 r, Uint8 g, Uint8 b)
     {  _put_pixel(surf, SDL_MapRGB(surf->format, r, g, b), x, y); }
-    
+
     void _blit_map();
 
     // used by _circle
@@ -117,17 +117,17 @@ namespace fastsim
 	       int x_center, int y_center, int radius,
 	       Uint32 color);
     //
-    void _line(SDL_Surface* surf, int x0, int y0, int x1, int y1, 
+    void _line(SDL_Surface* surf, int x0, int y0, int x1, int y1,
 	       Uint8 r, Uint8 g, Uint8 b)
     { _line(surf, x0, y0, x1, y1, SDL_MapRGB(surf->format, r, g, b)); }
-    void _line(SDL_Surface* surf, int x0, int y0, int x1, int y1, 
+    void _line(SDL_Surface* surf, int x0, int y0, int x1, int y1,
 	       Uint32 color);
-  
+
     void _try_pixel(bool& res,
 		    SDL_Surface* surf,
 		    Uint32 color,
 		    int x, int y);
-    
+
     //
     Uint32 _color_from_id(SDL_Surface* surf, int id);
     // disp sensor values
@@ -137,14 +137,14 @@ namespace fastsim
     void _disp_radars();
     void _disp_bumpers();
     void _disp_lasers(const std::vector<Laser>& lasers);
-    void _disp_lasers() { 
-      _disp_lasers(_robot.get_lasers()); 
+    void _disp_lasers() {
+      _disp_lasers(_robot.get_lasers());
       for (size_t i = 0; i < _robot.get_laser_scanners().size(); ++i)
 	_disp_lasers(_robot.get_laser_scanners()[i].get_lasers());
     }
     void _disp_light_sensors();
     void _disp_camera();
-    // 
+    //
     int _w, _h;
     SDL_Surface* _screen, *_map_bmp;
     SDL_Rect _prev_bb;
