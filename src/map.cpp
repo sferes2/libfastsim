@@ -41,7 +41,7 @@ namespace fastsim
         ifs.read(&c, 1);
     }
     else
-      ifs.seekg(ifs.tellg()-check.size());
+      ifs.seekg((int)ifs.tellg()-(int)check.size());
     ifs >> _w >> _h;
     if (str != "P4")
       throw Exception("wrong file type for map");
