@@ -28,7 +28,7 @@ def check_sdl(conf):
 		return 1
 	conf.start_msg('Checking for SDL C++ libs')
 	found = False
-	for lib in ['libSDL.so']: #, 'libSDL_image.so']:
+	for lib in ['libSDL.so', 'libSDL.dylib']: #, 'libSDL_image.so']:
 		try:
 			found = found or conf.find_file(lib, libs_check)
 		except:
