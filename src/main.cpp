@@ -19,9 +19,12 @@
 #include <iostream>
 #include "fastsim.hpp"
 
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
   using namespace fastsim;
-  assert(argc == 2);
+  if (argc != 2) {
+    std::cerr<<"This program cannot run: you need to provide a XML file (e.g.," << argv[0] << " worlds/example.xml)" << std::endl;
+    exit(1);
+  }
   fastsim::Settings settings(argv[1]);
   boost::shared_ptr<Map> map = settings.map();
   boost::shared_ptr<Robot> robot = settings.robot();
