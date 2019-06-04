@@ -30,7 +30,7 @@ def configure(conf):
     #            min_version='1.35')
 
     # release
-    opt_flags = common_flags + ' -O3 -msse2 -ggdb3 -fPIC'
+    opt_flags = common_flags + ' -O3 -msse2 -fPIC'
     conf.env['CXXFLAGS'] = cxxflags + opt_flags.split(' ')
     print conf.env['CXXFLAGS']
 
