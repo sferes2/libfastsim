@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
   
   for (int i = 0; i < 10000; ++i)
     {
+      std::cout << "Step " << i << " robot pos: x = "<< robot->get_pos().x() <<"    y = "<< robot->get_pos().y() <<"    theta = "<< robot->get_pos().theta() << std::endl;
       d.update();
       robot->move(1.0, 1.1, map);
       usleep(1000);
