@@ -7,12 +7,12 @@ namespace fastsim {
     read_xml(config_file, pt);
         
     ptree &n_map = pt.get_child("fastsim.map");
-    _map = boost::shared_ptr<Map>
+    _map = std::shared_ptr<Map>
       (new Map(_get_a<std::string>(n_map, "name").c_str(),
 	       _get_a<float>(n_map, "size")));
 
     ptree &n_robot = pt.get_child("fastsim.robot");
-    _robot = boost::shared_ptr<Robot>
+    _robot = std::shared_ptr<Robot>
       (new Robot(_get_a<float>(n_robot, "diameter"),
 		 Posture(_get_a<float>(n_robot, "x"),
 			 _get_a<float>(n_robot, "y"),

@@ -26,8 +26,8 @@ int main(int argc, char* argv[]) {
     exit(1);
   }
   fastsim::Settings settings(argv[1]);
-  boost::shared_ptr<Map> map = settings.map();
-  boost::shared_ptr<Robot> robot = settings.robot();
+  std::shared_ptr<Map> map = settings.map();
+  std::shared_ptr<Robot> robot = settings.robot();
 
   Display d(map, *robot);
   
@@ -46,8 +46,8 @@ int main()
   try
     {
       using namespace fastsim; 
-      boost::shared_ptr<Map> m = 
-	boost::shared_ptr<Map>(new Map("cuisine.pbm", 600));
+      std::shared_ptr<Map> m = 
+	std::shared_ptr<Map>(new Map("cuisine.pbm", 600));
       m->add_goal(Goal(100, 100, 10, 0));
       Robot r(20.0f, Posture(200, 200, 0));
       r.add_laser(Laser(M_PI / 4.0, 100.0f));

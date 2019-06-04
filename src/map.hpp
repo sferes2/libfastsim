@@ -27,7 +27,8 @@
 #include <fstream>
 #include <cmath>
 #include <cassert>
-#include <boost/shared_ptr.hpp>
+#include <memory>
+#include <algorithm>
 #include <iostream>
 
 #include "misc.hpp"
@@ -121,7 +122,7 @@ namespace fastsim
     const std::vector<Goal>& get_goals() const { return _goals; }
     void add_goal(const Goal& g) { _goals.push_back(g); }
 
-    typedef boost::shared_ptr<IlluminatedSwitch> ill_sw_t;
+    typedef std::shared_ptr<IlluminatedSwitch> ill_sw_t;
     void add_illuminated_switch(ill_sw_t is) 
     { _illuminated_switches.push_back(is); }
     const std::vector<ill_sw_t>& get_illuminated_switches() const 

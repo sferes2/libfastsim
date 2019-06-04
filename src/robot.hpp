@@ -74,9 +74,9 @@ namespace fastsim
     }
 
     // v1, v2 - (double) velocites to be applied to motors
-    // m - (boost::shared_ptr) pointer to map
+    // m - (std::shared_ptr) pointer to map
     // sticky_walls - (boolean) whether we want sticky walls or not (the robot turns when in collision if this value is false)
-    void move(float v1, float v2, const boost::shared_ptr<Map>& m, bool sticky_walls = true);
+    void move(float v1, float v2, const std::shared_ptr<Map>& m, bool sticky_walls = true);
 
     const Posture& get_pos() const { return _pos; }
     void set_pos(const Posture& pos) { _pos = pos; }
@@ -115,7 +115,7 @@ namespace fastsim
     const LinearCamera& get_camera() const { return _camera; }
     bool use_camera() const { return _use_camera; }
   protected:
-    bool _check_collision(const boost::shared_ptr<Map>& m);
+    bool _check_collision(const std::shared_ptr<Map>& m);
     void _update_bb();
     float _radius;
     Posture _pos;

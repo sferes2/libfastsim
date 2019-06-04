@@ -28,7 +28,7 @@
 
 namespace fastsim
 {
-  void Robot :: move(float v1, float v2, const boost::shared_ptr<Map>& m, bool sticky_walls)
+  void Robot :: move(float v1, float v2, const std::shared_ptr<Map>& m, bool sticky_walls)
   {
     Posture prev = _pos;
     _pos.move(v1, v2, _radius * 2);
@@ -70,7 +70,7 @@ namespace fastsim
     _bb.y = _pos.y() - _radius - 4;
   }
 
-  bool Robot :: _check_collision(const boost::shared_ptr<Map>& m)
+  bool Robot :: _check_collision(const std::shared_ptr<Map>& m)
   {
     // pixel wise
     int rp = m->real_to_pixel(_radius);

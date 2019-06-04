@@ -56,7 +56,7 @@ namespace fastsim
     SDL_UpdateRect(_screen, 0, 0, _w, _h);
   }
 
-  Display :: Display(const boost::shared_ptr<Map>& m, const Robot& r) : 
+  Display :: Display(const std::shared_ptr<Map>& m, const Robot& r) : 
     _map(m), _robot(r)
   {
     _w = _map->get_pixel_w();

@@ -26,7 +26,7 @@
 namespace fastsim
 {
   float Laser :: update(const Posture& pos,
-			const boost::shared_ptr<Map>& m)
+			const std::shared_ptr<Map>& m)
   {
     float x2 = cosf(_angle + pos.theta()) * _range + pos.x() + _gap_dist * cosf(_gap_angle + pos.theta());
     float y2 = sinf(_angle + pos.theta()) * _range + pos.y() + _gap_dist * sinf(_gap_angle + pos.theta());

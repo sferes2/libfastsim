@@ -37,7 +37,7 @@
 
 #include "map.hpp"
 #include "robot.hpp"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace fastsim
 {
@@ -46,7 +46,7 @@ namespace fastsim
 
   public:
 #ifdef USE_SDL
-    Display(const boost::shared_ptr<Map>& m, const Robot& r);
+    Display(const std::shared_ptr<Map>& m, const Robot& r);
     ~Display()
     {
       SDL_FreeSurface(_map_bmp);
@@ -59,13 +59,13 @@ namespace fastsim
       _blit_map();
     }
 #else
-    Display(const boost::shared_ptr<Map>& m, const Robot& r) : _map(m), _robot(r) {}
+    Display(const std::shared_ptr<Map>& m, const Robot& r) : _map(m), _robot(r) {}
     ~Display() {}
     void update(){}
     void update_map(){}
 #endif
   protected:
-    const boost::shared_ptr<Map>& _map;
+    const std::shared_ptr<Map>& _map;
     const Robot& _robot;
 #ifdef USE_SDL
     void _events();
