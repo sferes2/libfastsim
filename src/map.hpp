@@ -71,11 +71,11 @@ namespace fastsim
       //std::fill(_data.begin(), _data.end(), free);
     }
     
-    const std::vector<status_t>& getData() const {
+    const std::vector<status_t>& get_data() const {
       return _data;
     }
     
-    void setData(const std::vector<status_t>& from) {
+    void set_data(const std::vector<status_t>& from) {
       assert(from.size() == _w*_h);
       _data = from;
     }
