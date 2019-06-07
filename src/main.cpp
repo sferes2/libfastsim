@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
   std::shared_ptr<Map> map = settings.map();
   std::shared_ptr<Robot> robot = settings.robot();
 
-  Display d(map, *robot);
+  Display d(map, robot);
   
   for (int i = 0; i < 10000; ++i)
     {

@@ -56,7 +56,7 @@ namespace fastsim
     SDL_UpdateRect(_screen, 0, 0, _w, _h);
   }
 
-  Display :: Display(const std::shared_ptr<Map>& m, const Robot& r) : 
+  Display :: Display(std::shared_ptr<Map> m, std::shared_ptr<Robot> r) : 
     _map(m), _robot(r)
   {
     _w = _map->get_pixel_w();
@@ -84,7 +84,7 @@ namespace fastsim
     _map_bmp = SDL_CreateRGBSurface(SDL_SWSURFACE, _w, _h, 32, 
 				    rmask, gmask, bmask, amask);
     _blit_map();
-    _bb_to_sdl(_robot.get_bb(), &_prev_bb);
+    _bb_to_sdl(_robot->get_bb(), &_prev_bb);
   }
   
   void Display :: _line(SDL_Surface* surf,
@@ -245,10 +245,10 @@ namespace fastsim
 
   void Display :: _disp_bb()
   {
-    unsigned x = _map->real_to_pixel(_robot.get_bb().x);
-    unsigned y = _map->real_to_pixel(_robot.get_bb().y);
-    unsigned w = _map->real_to_pixel(_robot.get_bb().w);
-    unsigned h = _map->real_to_pixel(_robot.get_bb().h);
+    unsigned x = _map->real_to_pixel(_robot->get_bb().x);
+    unsigned y = _map->real_to_pixel(_robot->get_bb().y);
+    unsigned w = _map->real_to_pixel(_robot->get_bb().w);
+    unsigned h = _map->real_to_pixel(_robot->get_bb().h);
     
     assert(x >= 0);
     assert(y >= 0);
@@ -289,17 +289,17 @@ namespace fastsim
 
   void Display :: _disp_radars()
   {
-    unsigned r = _map->real_to_pixel(_robot.get_radius())  / 2;
-    unsigned x = _map->real_to_pixel(_robot.get_pos().x());
-    unsigned y = _map->real_to_pixel(_robot.get_pos().y());
+    unsigned r = _map->real_to_pixel(_robot->get_radius())  / 2;
+    unsigned x = _map->real_to_pixel(_robot->get_pos().x());
+    unsigned y = _map->real_to_pixel(_robot->get_pos().y());
 
-    for (size_t i = 0; i < _robot.get_radars().size(); ++i)
+    for (size_t i = 0; i < _robot->get_radars().size(); ++i)
       {
-	const Radar& radar = _robot.get_radars()[i];
+	const Radar& radar = _robot->get_radars()[i];
 	if (radar.get_activated_slice() != -1)
 	  {
-	    float a1 = _robot.get_pos().theta() + radar.get_inc() * radar.get_activated_slice();
-	    float a2 = _robot.get_pos().theta() + radar.get_inc() * (radar.get_activated_slice() + 1);
+	    float a1 = _robot->get_pos().theta() + radar.get_inc() * radar.get_activated_slice();
+	    float a2 = _robot->get_pos().theta() + radar.get_inc() * (radar.get_activated_slice() + 1);
 	    _line(_screen,
 		  cos(a1) * r + x, sin(a1) * r + y,
 		  cos(a2) * r + x, sin(a2) * r + y,
@@ -317,12 +317,12 @@ namespace fastsim
   void Display :: _disp_bumpers()
   {
     // convert to pixel
-    unsigned x = _map->real_to_pixel(_robot.get_pos().x());
-    unsigned y = _map->real_to_pixel(_robot.get_pos().y());
-    unsigned r = _map->real_to_pixel(_robot.get_radius());
-    float theta = _robot.get_pos().theta();
-    Uint32 cb_left = SDL_MapRGB(_screen->format, _robot.get_left_bumper() ? 255 : 0, 0, 0);
-    Uint32 cb_right = SDL_MapRGB(_screen->format, _robot.get_right_bumper() ? 255 : 0, 0, 0);
+    unsigned x = _map->real_to_pixel(_robot->get_pos().x());
+    unsigned y = _map->real_to_pixel(_robot->get_pos().y());
+    unsigned r = _map->real_to_pixel(_robot->get_radius());
+    float theta = _robot->get_pos().theta();
+    Uint32 cb_left = SDL_MapRGB(_screen->format, _robot->get_left_bumper() ? 255 : 0, 0, 0);
+    Uint32 cb_right = SDL_MapRGB(_screen->format, _robot->get_right_bumper() ? 255 : 0, 0, 0);
     _line(_screen,
 	  (int) (r * cosf(theta + M_PI / 2.0f) + x),
 	  (int) (r * sinf(theta + M_PI / 2.0f) + y),
@@ -369,13 +369,13 @@ namespace fastsim
   {
     for (size_t i = 0; i < lasers.size(); ++i)
       {
-	unsigned x_laser = _map->real_to_pixel(_robot.get_pos().x() 
+	unsigned x_laser = _map->real_to_pixel(_robot->get_pos().x() 
 					       + lasers[i].get_gap_dist() 
-					       * cosf(_robot.get_pos().theta() 
+					       * cosf(_robot->get_pos().theta() 
 						      + lasers[i].get_gap_angle()));
-	unsigned y_laser = _map->real_to_pixel(_robot.get_pos().y() 
+	unsigned y_laser = _map->real_to_pixel(_robot->get_pos().y() 
 					       + lasers[i].get_gap_dist() 
-					       * sinf(_robot.get_pos().theta()
+					       * sinf(_robot->get_pos().theta()
 						      + lasers[i].get_gap_angle()));
 	_line(_screen, x_laser, y_laser,
 	      lasers[i].get_x_pixel(),
@@ -386,27 +386,27 @@ namespace fastsim
 
   void Display :: _disp_light_sensors()
   {
-    for (size_t i = 0; i < _robot.get_light_sensors().size(); ++i)
+    for (size_t i = 0; i < _robot->get_light_sensors().size(); ++i)
       {
-	const LightSensor& ls = _robot.get_light_sensors()[i];
-	unsigned x_ls = _map->real_to_pixel(_robot.get_pos().x());
-	unsigned y_ls = _map->real_to_pixel(_robot.get_pos().y());
-	unsigned x_ls1 = _map->real_to_pixel(_robot.get_pos().x() 
+	const LightSensor& ls = _robot->get_light_sensors()[i];
+	unsigned x_ls = _map->real_to_pixel(_robot->get_pos().x());
+	unsigned y_ls = _map->real_to_pixel(_robot->get_pos().y());
+	unsigned x_ls1 = _map->real_to_pixel(_robot->get_pos().x() 
 					     + 200./((float)ls.get_color() + 1) 
-					     * cosf(_robot.get_pos().theta() 
+					     * cosf(_robot->get_pos().theta() 
 						    + ls.get_angle()-ls.get_range()/2.0));
-	unsigned y_ls1 = _map->real_to_pixel(_robot.get_pos().y() 
+	unsigned y_ls1 = _map->real_to_pixel(_robot->get_pos().y() 
 					     + 200./((float)ls.get_color() + 1)
-					     * sinf(_robot.get_pos().theta()
+					     * sinf(_robot->get_pos().theta()
 						    + ls.get_angle()-ls.get_range()/2.0));	
 	_line(_screen, x_ls, y_ls, x_ls1, y_ls1, _color_from_id(_screen, ls.get_color()));
-	unsigned x_ls2 = _map->real_to_pixel(_robot.get_pos().x() 
+	unsigned x_ls2 = _map->real_to_pixel(_robot->get_pos().x() 
 					     + 200./((float)ls.get_color() + 1)
-					     * cosf(_robot.get_pos().theta() 
+					     * cosf(_robot->get_pos().theta() 
 						    + ls.get_angle()+ls.get_range()/2.0));
-	unsigned y_ls2 = _map->real_to_pixel(_robot.get_pos().y() 
+	unsigned y_ls2 = _map->real_to_pixel(_robot->get_pos().y() 
 					     + 200./((float)ls.get_color() + 1)
-					     * sinf(_robot.get_pos().theta()
+					     * sinf(_robot->get_pos().theta()
 						    + ls.get_angle()+ls.get_range()/2.0));	
 	_line(_screen, x_ls, y_ls, x_ls2, y_ls2, _color_from_id(_screen, ls.get_color()));
        	_line(_screen, x_ls1, y_ls1, x_ls2, y_ls2, _color_from_id(_screen, ls.get_color()));
@@ -425,20 +425,20 @@ namespace fastsim
   void Display :: _disp_camera()
   {
     static const int pw = 20;
-    if (!_robot.use_camera())
+    if (!_robot->camera_enabled())
       return;
-    unsigned x_ls = _map->real_to_pixel(_robot.get_pos().x());
-    unsigned y_ls = _map->real_to_pixel(_robot.get_pos().y());
-    float a1 = _robot.get_pos().theta() + _robot.get_camera().get_angular_range() / 2.0;
+    unsigned x_ls = _map->real_to_pixel(_robot->get_pos().x());
+    unsigned y_ls = _map->real_to_pixel(_robot->get_pos().y());
+    float a1 = _robot->get_pos().theta() + _robot->get_camera().get_angular_range() / 2.0;
     _line(_screen, x_ls, y_ls, cos(a1) * 200 + x_ls, 
 	  sin(a1) * 200 + y_ls, 0x0000ff);
-    float a2 = _robot.get_pos().theta() - _robot.get_camera().get_angular_range() / 2.0;
+    float a2 = _robot->get_pos().theta() - _robot->get_camera().get_angular_range() / 2.0;
     _line(_screen, x_ls, y_ls, cos(a2) * 200 + x_ls, 
 	  sin(a2) * 200 + y_ls, 0x0000ff);
 
-    for (size_t i = 0; i < _robot.get_camera().pixels().size(); ++i)
+    for (size_t i = 0; i < _robot->get_camera().pixels().size(); ++i)
       {
-	int pix = _robot.get_camera().pixels()[i];	
+	int pix = _robot->get_camera().pixels()[i];	
 	Uint32 color = pix == -1 ? 0xffffff : _color_from_id(_screen, pix);
 	SDL_Rect r; r.x = i * pw; r.y = 0; r.w = pw; r.h = pw;
 	SDL_FillRect(_screen, &r, color);
@@ -450,10 +450,10 @@ namespace fastsim
   {
     _events();
     // convert to pixel
-    unsigned x = _map->real_to_pixel(_robot.get_pos().x());
-    unsigned y = _map->real_to_pixel(_robot.get_pos().y());
-    unsigned r = _map->real_to_pixel(_robot.get_radius());
-    float theta = _robot.get_pos().theta();
+    unsigned x = _map->real_to_pixel(_robot->get_pos().x());
+    unsigned y = _map->real_to_pixel(_robot->get_pos().y());
+    unsigned r = _map->real_to_pixel(_robot->get_radius());
+    float theta = _robot->get_pos().theta();
     
     // erase robot
     SDL_BlitSurface(_map_bmp, &_prev_bb, _screen, &_prev_bb);
@@ -477,7 +477,7 @@ namespace fastsim
     _disp_camera();
 
     // draw the circle again (robot)
-	unsigned int col=_robot.color();
+	unsigned int col=_robot->color();
     _disc(_screen, x, y, r, _color_from_id(_screen,col));
 	_circle(_screen,x,y,r,255,0,0);
     // direction
@@ -492,7 +492,7 @@ namespace fastsim
 
         
     SDL_Rect rect;
-    _bb_to_sdl(_robot.get_bb(), &rect);
+    _bb_to_sdl(_robot->get_bb(), &rect);
     using namespace std;
     rect.x = max(0, min((int)rect.x, (int)_prev_bb.x));
     rect.y = max(0, min((int)rect.y, (int)_prev_bb.y));
@@ -506,7 +506,7 @@ namespace fastsim
     //SDL_UpdateRect(_screen, rect.x, rect.y, rect.w, rect.h);
     // the slow one (needed when we have more than a circle to draw...)
     SDL_UpdateRect(_screen, 0, 0, _screen->w, _screen->h);
-    _bb_to_sdl(_robot.get_bb(), &_prev_bb);
+    _bb_to_sdl(_robot->get_bb(), &_prev_bb);
 
   }
 
