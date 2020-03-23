@@ -31,7 +31,7 @@ def configure(conf):
 
     # release
     opt_flags = common_flags + ' -O3 -msse2 -ggdb3 -g'
-    conf.env['CXXFLAGS'] = cxxflags + opt_flags.split(' ')
+    conf.env['CXXFLAGS'] = cxxflags + opt_flags.split(' ') + ['-std=c++11']
     print(conf.env['CXXFLAGS'])
 
 def build(bld):
