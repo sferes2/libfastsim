@@ -31,8 +31,10 @@ def configure(conf):
 
     # release
     opt_flags = common_flags + ' -O3 -msse2 -ggdb3 -g'
-    conf.env['CXXFLAGS'] = cxxflags + opt_flags.split(' ') + ['-std=c++11']
+    conf.env['CXXFLAGS'] = cxxflags + opt_flags.split(' ')
     print(conf.env['CXXFLAGS'])
+    
+    conf.env['CXXFLAGS'] = conf.env['CXXFLAGS'] + ['-std=c++11'] # Put it here so is compatible with the patch
 
 def build(bld):
     bld.recurse('src/')
