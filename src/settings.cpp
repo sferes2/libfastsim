@@ -20,7 +20,7 @@ namespace fastsim {
 
     ptree& n_display = pt.get_child("fastsim.display");
     _display = _get_a_bool(n_display, "enable");
-    std::cout<<"display=" << _display << std::endl;
+    //std::cout<<"display=" << _display << std::endl;
 
     BOOST_FOREACH(ptree::value_type &v, pt.get_child("fastsim")) {
       if (v.first == "goal")
