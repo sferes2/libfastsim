@@ -114,6 +114,7 @@ namespace fastsim
     void use_camera() { _use_camera = true; }
     const LinearCamera& get_camera() const { return _camera; }
     bool camera_enabled() const { return _use_camera; }
+    bool use_camera() const { return _use_camera; }
   protected:
     bool _check_collision(const std::shared_ptr<Map>& m);
     void _update_bb();
