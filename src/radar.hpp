@@ -1,7 +1,7 @@
 #ifndef FASTSIM_RADAR_HPP_
 #define FASTSIM_RADAR_HPP_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "posture.hpp"
 #include "map.hpp"
 
@@ -18,7 +18,7 @@ namespace fastsim
       _through_walls(through_walls)
     {}
     int update(const Posture& pos,
-	       const boost::shared_ptr<Map>& map);
+	       const std::shared_ptr<Map>& map);
     int get_activated_slice() const { return _activated_slice; }
     int get_nb_slices() const { return _nb_slices; }
     int get_color() const { return _color; }

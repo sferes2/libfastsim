@@ -5,7 +5,7 @@
 namespace fastsim
 {
   int Radar :: update(const Posture& pos,
-		      const boost::shared_ptr<Map>& map)
+		      const std::shared_ptr<Map>& map)
   {
     const Goal& g = map->get_goals()[_color];
     float angle = normalize_angle_2pi(atan2(g.get_y() - pos.y(), g.get_x() - pos.x())

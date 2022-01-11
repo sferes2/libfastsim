@@ -24,7 +24,7 @@
 # define   	LASER_HH_
 #include "map.hpp"
 #include "posture.hpp"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace fastsim
 {
@@ -38,7 +38,7 @@ namespace fastsim
       _x_pixel(0), _y_pixel(0),
       _dist(-1) {}
     float update(const Posture& pos,
-		 const boost::shared_ptr<Map>& map);
+		 const std::shared_ptr<Map>& map);
     float get_dist() const { return _dist; }
     float get_angle() const { return _angle; }
     float get_range() const { return _range; }
@@ -58,8 +58,8 @@ namespace fastsim
     int _x_pixel, _y_pixel;
     float _dist;
     // 
-    bool _try_pixel(const boost::shared_ptr<Map>& m, int x, int y);
-    bool _line_inter(const boost::shared_ptr<Map>& m,
+    bool _try_pixel(const std::shared_ptr<Map>& m, int x, int y);
+    bool _line_inter(const std::shared_ptr<Map>& m,
 		     int y1, int x1, // src
 		     int y2, int x2, // dest
 		     int& x_res, int& y_res //res

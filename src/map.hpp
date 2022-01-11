@@ -27,7 +27,8 @@
 #include <fstream>
 #include <cmath>
 #include <cassert>
-#include <boost/shared_ptr.hpp>
+#include <memory>
+#include <algorithm>
 #include <iostream>
 
 #include "misc.hpp"
@@ -58,6 +59,27 @@ namespace fastsim
       assert(_w == _h);
       _fx = _w / _real_w;
     }
+    
+    Map(int pixel_w, int pixel_h, float real_w) : 
+      _w(pixel_w),
+      _h(pixel_h),
+      _real_w(real_w),
+      _real_h(real_w)
+    {
+      _data.resize(_w * _h);
+      _fx = _w / _real_w;
+      //std::fill(_data.begin(), _data.end(), free);
+    }
+    
+    const std::vector<status_t>& get_data() const {
+      return _data;
+    }
+    
+    void set_data(const std::vector<status_t>& from) {
+      assert(from.size() == _w*_h);
+      _data = from;
+    }
+    
     // copy ONLY the picture (no goal, illuminated switches, etc) 
     // REASON:
     // we want to avoid reading the data data but we don't want to
@@ -121,7 +143,7 @@ namespace fastsim
     const std::vector<Goal>& get_goals() const { return _goals; }
     void add_goal(const Goal& g) { _goals.push_back(g); }
 
-    typedef boost::shared_ptr<IlluminatedSwitch> ill_sw_t;
+    typedef std::shared_ptr<IlluminatedSwitch> ill_sw_t;
     void add_illuminated_switch(ill_sw_t is) 
     { _illuminated_switches.push_back(is); }
     const std::vector<ill_sw_t>& get_illuminated_switches() const 

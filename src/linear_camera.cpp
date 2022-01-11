@@ -6,7 +6,7 @@ namespace fastsim
 {
   
   void LinearCamera :: update(const Posture& pos,
-                             const boost::shared_ptr<Map>& map)
+                             const std::shared_ptr<Map>& map)
   {
     float inc = _angular_range / _pixels.size();
     float r = -_angular_range / 2.0f;
