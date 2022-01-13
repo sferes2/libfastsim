@@ -19,7 +19,7 @@ namespace fastsim
       return -1;
     }
     float xi = _inc;
-    for (size_t i = 0; i < _nb_slices + 1; ++i)
+    for (int i = 0; i < _nb_slices + 1; ++i)
       {
 	if (angle < xi)
 	  return (_activated_slice = i % _nb_slices);

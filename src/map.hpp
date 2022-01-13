@@ -76,7 +76,7 @@ namespace fastsim
     }
     
     void set_data(const std::vector<status_t>& from) {
-      assert(from.size() == _w*_h);
+       assert((int)from.size() == _w*_h);
       _data = from;
     }
     
@@ -113,8 +113,8 @@ namespace fastsim
     float pixel_to_real(unsigned i) const { return i / _fx; }
     float get_real_w() const { return _real_w;}
     float get_real_h() const { return _real_h;}
-    unsigned get_pixel_w() const { return _w;}
-    unsigned get_pixel_h() const { return _h;}
+    int get_pixel_w() const { return _w;}
+    int get_pixel_h() const { return _h;}
     // see
     // http://lifc.univ-fcomte.fr/~dedu/projects/bresenham/index.html
     // in PIXEL coordinates
