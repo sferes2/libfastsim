@@ -13,19 +13,19 @@ Mouret, J.-B. and Doncieux, S. (2012). Encouraging Behavioral Diversity in Evolu
 
 Usage & installation
 --------------------
-- run `./waf configure` and `./waf build`
+- run `./waf configure`, `./waf build` and `./waf install`
 
 - running: `build/src/test_fastsim worlds/example.xml`
 
-### Depedencies: 
+### Depedencies:
 - SDL 1.2 (can be deactivated)
 
 Academic papers that use faststim
 ----------------------------------
-- Jingyu Li, Jed Storie, and Jeff Clune. (2014). Encouraging creative thinking in robots improves their ability to solve challenging problems. In Proceedings of the 2014 conference on Genetic and evolutionary computation (GECCO '14). ACM, New York, NY, USA, 193-200. 
+- Jingyu Li, Jed Storie, and Jeff Clune. (2014). Encouraging creative thinking in robots improves their ability to solve challenging problems. In Proceedings of the 2014 conference on Genetic and evolutionary computation (GECCO '14). ACM, New York, NY, USA, 193-200.
 - Doncieux, S. (2014). Knowledge Extraction from Learning Traces in Continuous Domains.
 AAAI 2014 fall Symposium ''Knowledge, Skill, and Behavior Transfer in Autonomous Robots''. Pages 1-8.
-- Koos, S. and Mouret, J.-B. and Doncieux, S. (2013). The Transferability Approach: Crossing the Reality Gap in Evolutionary Robotics. IEEE Transactions on Evolutionary Computation. Vol 17 No 1 Pages 122 - 145 
+- Koos, S. and Mouret, J.-B. and Doncieux, S. (2013). The Transferability Approach: Crossing the Reality Gap in Evolutionary Robotics. IEEE Transactions on Evolutionary Computation. Vol 17 No 1 Pages 122 - 145
 - Doncieux, S. (2013). Transfer Learning for Direct Policy Search: A Reward Shaping Approach. Proceedings of ICDL-EpiRob conference. Pages 1-6.
 - Doncieux, S. and Mouret, J.B. (2013). Behavioral Diversity with Multiple Behavioral Distances. Proc. of IEEE Congress on Evolutionary Computation, 2013 (CEC 2013). Pages 1-8.
 - Mouret, J.-B. and Doncieux, S. (2012). Encouraging Behavioral Diversity in Evolutionary Robotics: an Empirical Study. Evolutionary Computation. Vol 20 No 1 Pages 91-133.
@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
   boost::shared_ptr<Robot> robot = settings.robot();
 
   Display d(map, *robot);
-  
+
   for (int i = 0; i < 10000; ++i)
     {
       d.update();
@@ -96,7 +96,7 @@ Configuration file:
   <illuminated_switch x="250" y="450" color="0" radius="10" on="true"/>
   <light_sensor angle="100" color="0" angular_range="50"/>
   <goal x="100" y="100" color="0" diameter="10"/>
-  
+
   <!-- sensors (optionals) -->
   <laser range="100" angle="45"/>
   <laser range="100" angle="-45"/>
@@ -116,7 +116,7 @@ int main()
 {
   try
     {
-      using namespace fastsim; 
+      using namespace fastsim;
       boost::shared_ptr<Map> m = boost::shared_ptr<Map>(new Map("cuisine.pbm", 600));
       m->add_goal(Goal(100, 100, 10, 0));
       Robot r(20.0f, Posture(200, 200, 0));
@@ -140,5 +140,3 @@ int main()
   return 0;
 }
 ```
-
-
