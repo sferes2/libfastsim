@@ -47,21 +47,21 @@ namespace fastsim
       float get_y() const { return _y; }
       void set_pos(float x, float y) { _x = x; _y = y; }
       bool get_activated() const { return _activated; }
-      void link(boost::shared_ptr<IlluminatedSwitch> o) { _linked_lights.push_back(o); }
+      void link(std::shared_ptr<IlluminatedSwitch> o) { _linked_lights.push_back(o); }
     protected:
       int _color;
       float _radius;
       float _x, _y;
       bool _on;
       bool _activated;
-      std::vector<boost::shared_ptr<IlluminatedSwitch> > _linked_lights;
+      std::vector<std::shared_ptr<IlluminatedSwitch> > _linked_lights;
   };
 
   struct ClosestSwitch_f
   {
     ClosestSwitch_f(float x, float y) : _x(x), _y(y) {}
-    bool operator()(const boost::shared_ptr<IlluminatedSwitch> i1,
-		    const boost::shared_ptr<IlluminatedSwitch> i2)
+    bool operator()(const std::shared_ptr<IlluminatedSwitch> i1,
+		    const std::shared_ptr<IlluminatedSwitch> i2)
     {
       float x1 = i1->get_x() - _x;
       float y1 = i1->get_y() - _y;

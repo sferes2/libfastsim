@@ -5,7 +5,7 @@
 namespace fastsim
 {
   int LightSensor :: update(const Posture& pos,
-			    const boost::shared_ptr<Map>& map)
+			    const std::shared_ptr<Map>& map)
   {
     const std::vector<Map::ill_sw_t>& isv = map->get_illuminated_switches();
     _activated = false;

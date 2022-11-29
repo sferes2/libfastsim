@@ -26,13 +26,14 @@ int main(int argc, char* argv[]) {
     exit(1);
   }
   fastsim::Settings settings(argv[1]);
-  boost::shared_ptr<Map> map = settings.map();
-  boost::shared_ptr<Robot> robot = settings.robot();
+  std::shared_ptr<Map> map = settings.map();
+  std::shared_ptr<Robot> robot = settings.robot();
 
-  Display d(map, *robot);
+  Display d(map, robot);
   
   for (int i = 0; i < 10000; ++i)
     {
+      std::cout << "Step " << i << " robot pos: x = "<< robot->get_pos().x() <<"    y = "<< robot->get_pos().y() <<"    theta = "<< robot->get_pos().theta() << std::endl;
       d.update();
       robot->move(1.0, 1.1, map);
       usleep(1000);
@@ -46,8 +47,8 @@ int main()
   try
     {
       using namespace fastsim; 
-      boost::shared_ptr<Map> m = 
-	boost::shared_ptr<Map>(new Map("cuisine.pbm", 600));
+      std::shared_ptr<Map> m = 
+	std::shared_ptr<Map>(new Map("cuisine.pbm", 600));
       m->add_goal(Goal(100, 100, 10, 0));
       Robot r(20.0f, Posture(200, 200, 0));
       r.add_laser(Laser(M_PI / 4.0, 100.0f));

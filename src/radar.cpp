@@ -5,7 +5,7 @@
 namespace fastsim
 {
   int Radar :: update(const Posture& pos,
-		      const boost::shared_ptr<Map>& map)
+		      const std::shared_ptr<Map>& map)
   {
     const Goal& g = map->get_goals()[_color];
     float angle = normalize_angle_2pi(atan2(g.get_y() - pos.y(), g.get_x() - pos.x())
@@ -19,7 +19,7 @@ namespace fastsim
       return -1;
     }
     float xi = _inc;
-    for (size_t i = 0; i < _nb_slices + 1; ++i)
+    for (int i = 0; i < _nb_slices + 1; ++i)
       {
 	if (angle < xi)
 	  return (_activated_slice = i % _nb_slices);

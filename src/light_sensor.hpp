@@ -1,7 +1,7 @@
 #ifndef FASTSIM_LIGHT_SENSOR_HPP_
 #define FASTSIM_LIGHT_SENSOR_HPP_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "posture.hpp"
 #include "map.hpp"
 
@@ -20,7 +20,7 @@ namespace fastsim
       //      std::cout<<"angle="<<angle<<" range="<<range<<std::endl;
     }
     int update(const Posture& pos,
-	       const boost::shared_ptr<Map>& map);
+	       const std::shared_ptr<Map>& map);
     int	get_color() const { return _color; }
     float get_angle() const { return _angle; }
     float get_range() const { return _range; }

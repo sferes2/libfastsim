@@ -30,9 +30,9 @@ def configure(conf):
     #            min_version='1.35')
 
     # release
-    opt_flags = common_flags + ' -O3 -msse2 -ggdb3 -g'
+    opt_flags = common_flags + ' -O3 -msse2 -fPIC'
     conf.env['CXXFLAGS'] = cxxflags + opt_flags.split(' ')
-    print conf.env['CXXFLAGS']
+    print(conf.env['CXXFLAGS'])
 
 def build(bld):
     bld.recurse('src/')

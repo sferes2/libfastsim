@@ -37,7 +37,7 @@
 
 #include "map.hpp"
 #include "robot.hpp"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace fastsim
 {
@@ -46,7 +46,7 @@ namespace fastsim
 
   public:
 #ifdef USE_SDL
-    Display(const boost::shared_ptr<Map>& m, const Robot& r);
+    Display(std::shared_ptr<Map> m, std::shared_ptr<Robot> r);
     ~Display()
     {
       SDL_FreeSurface(_map_bmp);
@@ -59,14 +59,14 @@ namespace fastsim
       _blit_map();
     }
 #else
-    Display(const boost::shared_ptr<Map>& m, const Robot& r) : _map(m), _robot(r) {}
+    Display(std::shared_ptr<Map> m, std::shared_ptr<Robot> r) : _map(m), _robot(r) {}
     ~Display() {}
     void update(){}
     void update_map(){}
 #endif
   protected:
-    const boost::shared_ptr<Map>& _map;
-    const Robot& _robot;
+    const std::shared_ptr<Map> _map;
+    const  std::shared_ptr<Robot> _robot;
 #ifdef USE_SDL
     void _events();
     void _bb_to_sdl(const Robot::BoundingBox& bb,
@@ -138,9 +138,9 @@ namespace fastsim
     void _disp_bumpers();
     void _disp_lasers(const std::vector<Laser>& lasers);
     void _disp_lasers() {
-      _disp_lasers(_robot.get_lasers());
-      for (size_t i = 0; i < _robot.get_laser_scanners().size(); ++i)
-	_disp_lasers(_robot.get_laser_scanners()[i].get_lasers());
+      _disp_lasers(_robot->get_lasers());
+      for (size_t i = 0; i < _robot->get_laser_scanners().size(); ++i)
+	_disp_lasers(_robot->get_laser_scanners()[i].get_lasers());
     }
     void _disp_light_sensors();
     void _disp_camera();

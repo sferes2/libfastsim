@@ -41,7 +41,7 @@ namespace fastsim
 	_lasers.push_back(Laser(a, range_max));
     }
     void update(const Posture& pos,
-		 const boost::shared_ptr<Map>& map){
+		 const std::shared_ptr<Map>& map){
       for (size_t i = 0; i < _lasers.size(); ++i)
 	_lasers[i].update(pos, map);
     }    

@@ -12,12 +12,12 @@ namespace fastsim {
   public:
     // parse a xml file to instantiate the map & the robot
     Settings(const std::string& xml_file);
-    boost::shared_ptr<Map> map() { return _map; }
-    boost::shared_ptr<Robot> robot() { return _robot; }
+    std::shared_ptr<Map> map() { return _map; }
+    std::shared_ptr<Robot> robot() { return _robot; }
     bool display() const { return _display; }
   protected:
-    boost::shared_ptr<Map> _map;
-    boost::shared_ptr<Robot> _robot;
+    std::shared_ptr<Map> _map;
+    std::shared_ptr<Robot> _robot;
     bool _display;
 
     template<typename R>
